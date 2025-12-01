@@ -81,7 +81,7 @@ float4 PSColorMain(PSInput input) : SV_TARGET
 D3D12PolyCache::D3D12PolyCache()
 	: m_pDevice(nullptr)
 	, m_pCommandQueue(nullptr)
-	, m_NextStaticID(1)
+	, m_NextStaticID(1)  // Start at 1 so 0 can be used as an invalid ID sentinel
 	, m_bInitialized(false)
 {
 }

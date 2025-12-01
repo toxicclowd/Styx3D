@@ -192,10 +192,34 @@ bool D3D12TextureMgr::LockTexture(jeTexture* pTexture, int32 MipLevel, void** pp
 	if (!pTexture)
 		return false;
 
-	// Allocate a temporary buffer for CPU access
-	size_t bpp = 4; // Assuming 32-bit textures
+	// Calculate bytes per pixel based on texture format
+	size_t bpp = 4; // Default to 32-bit
+	switch (pTexture->PixelFormat.PixelFormat)
+	{
+	case JE_PIXELFORMAT_32BIT_ARGB:
+	case JE_PIXELFORMAT_32BIT_XRGB:
+		bpp = 4;
+		break;
+	case JE_PIXELFORMAT_24BIT_RGB:
+		bpp = 3;
+		break;
+	case JE_PIXELFORMAT_16BIT_565_RGB:
+	case JE_PIXELFORMAT_16BIT_555_RGB:
+	case JE_PIXELFORMAT_16BIT_1555_ARGB:
+	case JE_PIXELFORMAT_16BIT_4444_ARGB:
+		bpp = 2;
+		break;
+	case JE_PIXELFORMAT_8BIT:
+	case JE_PIXELFORMAT_8BIT_PAL:
+		bpp = 1;
+		break;
+	default:
+		bpp = 4;
+		break;
+	}
+
 	size_t bufferSize = pTexture->Width * pTexture->Height * bpp;
-	*ppData = malloc(bufferSize);
+	*ppData = new uint8[bufferSize];
 	
 	if (!*ppData)
 		return false;
