@@ -24,6 +24,22 @@ There aren't really any other engines out there that are of this vintage under p
   
   - [ ] Still gotta port software video driver to SDL
 
+- [x] Modernize for Windows 11
+  
+  - [x] Update to Visual Studio 2022 (v143 toolset)
+  
+  - [x] Add x64 platform configurations
+  
+  - [x] Update Windows SDK to 10.0 (latest)
+
+- [x] Add DirectX 12 rendering backend
+  
+  - [x] Implement Direct3D12Driver with full DRV_Driver interface
+  
+  - [x] Support for texture management, polygon caching, and scene rendering
+  
+  - [x] Modern shader-based rendering pipeline
+
 - [ ] Clean up directory structure
 
 - [ ] Implement an OpenGL 1.1 rendering backend
