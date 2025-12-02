@@ -133,62 +133,31 @@ static __inline jeFloat jeFloat_Cube(jeFloat a)
 
 //------------------------------
 
-// CB : what does the optimizer do with inline assembly in inline functions ?
-//		will it turn off all optimizations?
+#include <math.h>
 
-static jeFloat __inline jeFloat_RoundToInt(jeFloat val) // rounds depending on how you set jeCPU_FloatControl
+static jeFloat __inline jeFloat_RoundToInt(jeFloat val)
 {
-	__asm
-	{
-		FLD  val
-		FRNDINT
-		FSTP val
-	}
-return val;
+	return (jeFloat)roundf(val);
 }
 
 static jeFloat __inline jeFloat_Sqrt(jeFloat val)
 {
-	__asm 
-	{
-		FLD  val		// 1 clock
-		FSQRT			// 30-70 clocks
-		FSTP val		// 2 clocks
-	}
-return val;
+	return sqrtf(val);
 }
 
 static jeFloat __inline jeFloat_Sin(jeFloat val)
 {
-	__asm 
-	{
-		FLD  val		// 1 clock
-		FSIN			// ~ 200 clocks
-		FSTP val		// 2 clocks
-	}
-return val;
+	return sinf(val);
 }
 
 static jeFloat __inline jeFloat_Cos(jeFloat val)
 {
-	__asm 
-	{
-		FLD  val		// 1 clock
-		FCOS			// ~ 200 clocks
-		FSTP val		// 2 clocks
-	}
-return val;
+	return cosf(val);
 }
 
 static int32 __inline jeFloat_ToInt(jeFloat f)
 {
-int32 i;
-	__asm
-	{
-		FLD   f
-		FISTP i
-	}
-return i;
+	return (int32)roundf(f);
 }
 
 #pragma warning (disable:4514)	// unreferenced inline function

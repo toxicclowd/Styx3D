@@ -423,17 +423,18 @@ uint32 D3D12PolyCache::AddStaticBuffer(jeHWVertex* Points, int32 NumPoints, jeRD
 
 	for (int32 i = 0; i < NumPoints; i++)
 	{
-		vertices[i].x = Points[i].X;
-		vertices[i].y = Points[i].Y;
-		vertices[i].z = Points[i].Z;
-		vertices[i].r = Points[i].r;
-		vertices[i].g = Points[i].g;
-		vertices[i].b = Points[i].b;
-		vertices[i].a = Points[i].a;
+		vertices[i].x = Points[i].Pos.X;
+		vertices[i].y = Points[i].Pos.Y;
+		vertices[i].z = Points[i].Pos.Z;
+		// Extract ARGB components from Diffuse uint32
+		vertices[i].a = ((Points[i].Diffuse >> 24) & 0xFF) / 255.0f;
+		vertices[i].r = ((Points[i].Diffuse >> 16) & 0xFF) / 255.0f;
+		vertices[i].g = ((Points[i].Diffuse >> 8) & 0xFF) / 255.0f;
+		vertices[i].b = (Points[i].Diffuse & 0xFF) / 255.0f;
 		vertices[i].u = Points[i].u;
 		vertices[i].v = Points[i].v;
-		vertices[i].u2 = Points[i].LMapU;
-		vertices[i].v2 = Points[i].LMapV;
+		vertices[i].u2 = Points[i].lu;
+		vertices[i].v2 = Points[i].lv;
 	}
 
 	D3D12_HEAP_PROPERTIES heapProps = {};

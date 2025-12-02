@@ -210,7 +210,7 @@ bool D3D12TextureMgr::LockTexture(jeTexture* pTexture, int32 MipLevel, void** pp
 		bpp = 2;
 		break;
 	case JE_PIXELFORMAT_8BIT:
-	case JE_PIXELFORMAT_8BIT_PAL:
+	// JE_PIXELFORMAT_8BIT_PAL is an alias for JE_PIXELFORMAT_8BIT
 		bpp = 1;
 		break;
 	default:
